@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>R Store — APK Store</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;background:#050505;color:#eee;font-family:Arial,Helvetica,sans-serif}
+body{min-height:100vh}.wrap{max-width:680px;margin:auto;padding-bottom:90px}
+header{padding:28px 22px 18px;display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;gap:12px;align-items:center}.logo{width:58px;height:58px;border-radius:17px;background:linear-gradient(145deg,#ff2424,#b40000);display:grid;place-items:center;font-size:34px;font-weight:900;box-shadow:0 0 28px #e0000033}
+.brand h1{font-size:20px;margin:0;letter-spacing:.5px}.brand small{color:#777}.online{color:#ff1717;font-size:12px;font-weight:800}
+.hero{margin:0 18px 18px;padding:24px;border:1px solid #321010;border-radius:24px;background:radial-gradient(circle at 20% 0,#290909,#090909 60%);text-align:center}
+.hero h2{margin:6px 0;font-size:25px}.hero p{color:#888;margin:8px 0 20px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.stat{background:#151515;border:1px solid #222;border-radius:16px;padding:15px}.stat b{display:block;color:#f00;font-size:20px}.stat span{font-size:10px;color:#777}
+.promo{margin:0 18px 16px;padding:17px;border-radius:20px;background:linear-gradient(100deg,#271000,#100800);border:1px solid #532100}.promo b{color:#ffae00}.promo small{display:block;color:#aaa;margin-top:5px}
+.section{padding:0 18px}.tabs{display:flex;background:#171717;border-radius:18px;padding:5px;margin-bottom:14px}.tab{flex:1;padding:14px;text-align:center;color:#777;font-weight:800}.tab.active{background:#3b1111;color:#fff;border-radius:14px}
+.card{display:flex;align-items:center;justify-content:space-between;gap:15px;background:#111;border:1px solid #202020;border-radius:20px;padding:18px;margin:11px 0}.info h3{font-size:15px;margin:0 0 7px}.info p{font-size:11px;color:#777;margin:0}.price{color:#f00;font-weight:900;font-size:18px;white-space:nowrap}.buy{display:block;margin-top:9px;background:#e00000;color:white;border:0;border-radius:12px;padding:11px 17px;font-weight:900;cursor:pointer}.buy:hover{filter:brightness(1.15)}
+footer{position:fixed;bottom:0;left:0;right:0;background:#080808eF;border-top:1px solid #1d1d1d;backdrop-filter:blur(10px)}nav{max-width:680px;margin:auto;display:flex;justify-content:space-around;padding:13px}.navitem{color:#666;font-size:11px;text-align:center}.navitem.active{color:#f00}
+.modal{display:none;position:fixed;inset:0;background:#000b;align-items:center;justify-content:center;padding:20px}.modal.open{display:flex}.box{max-width:420px;width:100%;background:#111;border:1px solid #4a1111;border-radius:24px;padding:25px;text-align:center}.box h2{margin-top:0}.box input{width:100%;padding:14px;border-radius:12px;border:1px solid #333;background:#080808;color:#fff;margin:8px 0}.close{background:#222;color:#aaa;border:0;padding:10px 16px;border-radius:10px;margin-top:8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="brand"><div class="logo">R</div><div><h1>R STORE</h1><small>OFFICIAL APK STORE</small></div></div>
+  <div class="online">● ONLINE</div>
+</header>
+
+<section class="hero">
+  <h2>APK STORE PREMIUM</h2>
+  <p>Download aplikasi dan tools Android yang aman dan legal.</p>
+  <div class="stats">
+    <div class="stat"><b>700+</b><span>USERS</span></div>
+    <div class="stat"><b>18</b><span>FILES</span></div>
+    <div class="stat"><b>24/7</b><span>SUPPORT</span></div>
+  </div>
+</section>
+
+<div class="promo"><b>🔥 SUPER PROMO</b><small>Diskon khusus untuk pembelian paket premium minggu ini.</small></div>
+
+<section class="section">
+  <div class="tabs"><div class="tab active">▣ FILE</div><div class="tab">◈ MOD MENU</div></div>
+  <div id="products"></div>
+</section>
+</div>
+
+<footer><nav>
+  <div class="navitem active">⌂<br>HOME</div><div class="navitem">◉<br>WA</div><div class="navitem">➤<br>TELEGRAM</div>
+</nav></footer>
+
+<div class="modal" id="modal">
+  <div class="box">
+    <h2 id="modalTitle">Pembelian</h2>
+    <p style="color:#888">Masukkan nama/ID WhatsApp untuk melanjutkan.</p>
+    <input id="contact" placeholder="083867871175">
+    <button class="buy" style="width:100%" onclick="checkout()">LANJUTKAN</button>
+    <button class="close" onclick="closeModal()">TUTUP</button>
+  </div>
+</div>
+
+<script>
+const products=[
+ {n:"APK WHATSAPP UTILITY",d:"Tools produktivitas WhatsApp yang aman",p:"Rp5.000"},
+ {n:"WHATSAPP BUSINESS TOOLKIT",d:"Fitur bantuan untuk pengelolaan chat",p:"Rp15.000"},
+ {n:"AUTO REPLY ASSISTANT",d:"Asisten balasan otomatis untuk kebutuhan bisnis",p:"Rp25.000"},
+ {n:"CHAT BACKUP MANAGER",d:"Membantu mengatur dan mencadangkan data chat",p:"Rp45.000"},
+ {n:"ANDROID PREMIUM PACK",d:"Paket aplikasi Android pilihan",p:""},
+ {n:"SUPPORT VIP",d:"Prioritas bantuan instalasi dan penggunaan",p:""}
+];
+const box=document.getElementById("products");
+products.forEach(x=>box.innerHTML+=`<article class="card"><div class="info"><h3>${x.n}</h3><p>${x.d}</p></div><div><div class="price">${x.p}</div><button class="buy" onclick="openModal('${x.n}')">BELI</button></div></article>`);
+let selected="";
+function openModal(n){selected=n;document.getElementById("modalTitle").textContent="Beli "+n;document.getElementById("modal").classList.add("open")}
+function closeModal(){document.getElementById("modal").classList.remove("open")}
+function checkout(){
+ const c=document.getElementById("contact").value.trim();
+ if(!c)return alert("Masukkan nomor WhatsApp terlebih dahulu.");
+ const msg=encodeURIComponent(`Halo, saya ingin membeli ${selected}. Kontak: ${c}`);
+ window.open(`https://wa.me/6283867871175?text=${msg}`,"_blank");
+}
+</script>
+</body>
+</html>>
+</body>
+</html>
